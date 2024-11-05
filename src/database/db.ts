@@ -4,6 +4,10 @@ import Question from "../entities/question.entity";
 import User from "../entities/user.entity";
 import Result from "../entities/result.entity";
 
+/**
+ * Mock database for technology categories
+ * Each category represents a different programming technology or concept
+ */
 export const categories: Category[] = [
     { 
         id: 1, 
@@ -57,6 +61,11 @@ export const categories: Category[] = [
     },
 ];
 
+/**
+ * Mock database for assessments
+ * Contains test configurations for different technology categories
+ * Each assessment includes metadata like time limits and passing scores
+ */
 export const assessments: Assessment[] = [
     {
         id: 1,
@@ -95,6 +104,15 @@ export const assessments: Assessment[] = [
         questionsCount: 20
     },
 ];
+
+/**
+ * Mock database for assessment questions
+ * Each question includes:
+ * - Question text
+ * - Multiple choice options
+ * - Correct answer index
+ * - Reference to parent assessment
+ */
 export const questions: Question[] = [
     {
         id: 1,
@@ -125,9 +143,23 @@ export const questions: Question[] = [
         assessmentId: 1
     }
 ];
+
+/**
+ * Storage for user data
+ * Initialized as empty array to store user records dynamically
+ */
 export const users: User[] = [];
+
+/**
+ * Storage for assessment results
+ * Tracks user performance and scores
+ */
 export const results: Result[] = [];
 
+/**
+ * Database object that consolidates all data collections
+ * Provides central access point for data operations
+ */
 const Db = {
     categories,
     assessments,
