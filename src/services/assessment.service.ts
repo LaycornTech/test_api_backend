@@ -1,6 +1,6 @@
-import Db from "../database/db";
-import Assessment from "../entities/assessment.entity";
-import Question from "../entities/question.entity";
+import Db from '../database/db';
+import Assessment from '../entities/assessment.entity';
+import Question from '../entities/question.entity';
 
 /**
  * Retrieves an assessment based on either categoryId or assessmentId
@@ -12,7 +12,7 @@ export function getAssessment(options: {
   assessmentId?: number;
 }): Assessment | undefined {
   const { categoryId, assessmentId } = options;
-  if (!categoryId || !assessmentId) {
+  if (!categoryId && !assessmentId) {
     return undefined;
   }
   let assessment = null;
@@ -55,19 +55,16 @@ export function calculateScore(
   response: { questionId: number; answer: number; userId: number }
 ): number {
   // Get or create a result record for the user
-  const userCurrentResult = getOrCreateResult(
-    response.userId,
-    assessmentId
-  );
+  const userCurrentResult = getOrCreateResult(response.userId, assessmentId);
   let score = 0;
-  
+
   // Find the question being answered
   const referencedQueston = Db.questions.find(
     (question) =>
       question.id === response.questionId &&
       question.assessmentId === assessmentId
   );
-  
+
   // Check if answer is correct and assign score
   if (referencedQueston) {
     if (referencedQueston.correctOption === response.answer) {
@@ -94,7 +91,7 @@ function getOrCreateResult(userId: number, assessmentId: number) {
   if (result) {
     return result;
   }
-  
+
   // Create new result if none exists
   const newResult = {
     id: Db.results.length + 1,
